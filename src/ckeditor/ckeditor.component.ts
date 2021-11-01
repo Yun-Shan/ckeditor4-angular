@@ -38,6 +38,8 @@ declare let CKEDITOR: any;
 	]
 } )
 export class CKEditorComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
+
+	@Input() disableChangeEvent = false;
 	/**
 	 * The configuration of the editor.
 	 *
@@ -395,14 +397,16 @@ export class CKEditorComponent implements AfterViewInit, OnDestroy, ControlValue
 			} );
 		} );
 
-		editor.on( 'dataReady', this.propagateChange, this );
+		if (!this.disableChangeEvent) {
+		    editor.on( 'dataReady', this.propagateChange, this );
 
-		if ( this.instance.undoManager ) {
-			editor.on( 'change', this.propagateChange, this );
-		}
-		// If 'undo' plugin is not loaded, listen to 'selectionCheck' event instead. (#54).
-		else {
-			editor.on( 'selectionCheck', this.propagateChange, this );
+		    if ( this.instance.undoManager ) {
+		    	editor.on( 'change', this.propagateChange, this );
+		    }
+		    // If 'undo' plugin is not loaded, listen to 'selectionCheck' event instead. (#54).
+		    else {
+		    	editor.on( 'selectionCheck', this.propagateChange, this );
+		    }
 		}
 	}
 
