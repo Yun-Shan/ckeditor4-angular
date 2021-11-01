@@ -1,12 +1,13 @@
 {
 	"name": "ckeditor4-angular",
-	"version": "2.2.2",
+	"version": "2.2.3",
 	"description": "Official CKEditor 4 component for Angular.",
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",
 		"build": "ng build",
 		"build-package": "node ./scripts/build-package.js",
+		"prepare": "npm run build-package",
 		"test": "node ./scripts/test.js",
 		"lint": "ng lint",
 		"e2e": "ng e2e",
