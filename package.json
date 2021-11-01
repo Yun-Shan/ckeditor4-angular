@@ -7,7 +7,7 @@
 		"start": "ng serve",
 		"build": "ng build",
 		"build-package": "node ./scripts/build-package.js",
-		"prepare": "npm run build-package",
+		"prepare": "npm run build-package -- --install-from-github",
 		"test": "node ./scripts/test.js",
 		"lint": "ng lint",
 		"e2e": "ng e2e",
@@ -19,7 +19,11 @@
 		"postversion": "git rm -r --cached dist/ && git commit -m \"Clean after release [ci skip]\" && git push origin && git push origin --tags"
 	},
 	"files": [
-		"dist/*"
+		"bundles/",
+		"esm2015/",
+		"fesm2015/",
+		"ckeditor*",
+		"package.json"
 	],
 	"author": "CKSource (https://cksource.com/)",
 	"license": "(GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1-or-later)",

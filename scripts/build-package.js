@@ -28,9 +28,11 @@ for ( const file of filesToCopy ) {
 	fs.copyFileSync( src, dest );
 }
 
+const rootDir = path.join(process.cwd());
+const distDir = path.join(process.cwd(), 'dist');
 // Update the version of package in dist/package.json
-const srcPackageJsonPath = path.join( process.cwd(), 'package.json' ),
-	distPackageJsonPath = path.join( process.cwd(), 'dist', 'package.json' ),
+const srcPackageJsonPath = path.join(rootDir, 'package.json' ),
+	distPackageJsonPath = path.join(distDir, 'package.json' ),
 
 	srcPackageJson = fs.readJsonSync( srcPackageJsonPath ),
 	distPackageJson = fs.readJsonSync( distPackageJsonPath );
@@ -38,3 +40,9 @@ const srcPackageJsonPath = path.join( process.cwd(), 'package.json' ),
 distPackageJson.version = srcPackageJson.version;
 
 fs.writeJsonSync( distPackageJsonPath, distPackageJson, { spaces: 2 } );
+
+const args = process.argv.slice(2);
+if (args.length > 0 && args[0] === '--install-from-github') {
+	fs.copySync(distDir, rootDir, {overwrite: true});
+}
+
